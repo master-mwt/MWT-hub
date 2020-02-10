@@ -2,7 +2,7 @@ import os
 import string
 import sys
 
-if (len(sys.argv) < 2 or len(sys.argv) > 2):
+if (len(sys.argv) != 2):
     print("script synopsis: <script> <db_password>")
     exit
 else:
