@@ -1,0 +1,1256 @@
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ANNO_ACCADEMICO_CORRENTE
+
+	   	 DESCR:		viene recuperato l'anno accademico corrente calcolato in base
+	   	 			al tipo data riferimento passato in input ed eventualmente al
+	   	 			tipo di corso (parametro opzionale, se non valorizzato
+	   	 			l'operazione ritorna l'anno accademico definito a livello di 
+	   	 			ateneo)
+
+	   OP CODE:		GET_CURR_AA
+
+	 INPUT MAN:		tipo_data_rif_cod
+
+ VAL INPUT MAN:		- DR_CALESA ::	Calcolo AA nel Calendario Esami;
+					- DR_CARR 	::	Calcolo AA nella carriera;
+					- DR_IPO 	::	Calcolo AA nelle ipotesi di iscrizione;
+					- DR_ISCR 	::	Calcolo AA nelle immatricolazioni;
+					- DR_OFF 	::	Calcolo AA nell´offerta didattica;
+					- DR_PASS 	::	Calcolo AA nel passaggio di corso;
+					- DR_RICO 	::	Calcolo AA nella ricognizione;
+					- DR_SOSP 	::	Calcolo AA di inizio sospensione;
+					- DR_TASSE 	::	Calcolo AA nelle tasse;
+					- DR_TRASF 	::	Calcolo AA nei trasferimenti IN uscita;
+					- DR_TRA_IN ::	Calcolo AA nei trasferimenti IN ingresso
+
+	INPUT OPT:		tipo_corso_cod
+
+VAL INPUT OPT:		?(tipo corso gestito da esse3)
+
+	   OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AA_LOOKUP">
+							<Row Num="1">
+								<aa_id>2005</aa_id>
+								<des>2005/2006</des>
+								<data_inizio>01/09/2005 00:00:00</data_inizio>
+								<data_fine>31/08/2006 00:00:00</data_fine>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_ANNI_ACCADEMICI
+
+	   	 DESCR:		vengono recuperati gli anni accademici a partire dal dato di
+	   	 			input aa_ini_id fino all'anno d'offerta corrente alla data di 
+	   	 			consultazione (estremi compresi)
+
+	   OP CODE:		AA_LOOKUP
+
+	 INPUT MAN:		aa_ini_id
+
+ VAL INPUT MAN:		- INT	::	anno accademico iniziale
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AA_LOOKUP">
+							<Row Num="1">
+								<aa_id>2005</aa_id>
+								<des>2005/2006</des>
+								<data_inizio>01/09/2005 00:00:00</data_inizio>
+								<data_fine>31/08/2006 00:00:00</data_fine>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$CLASSI
+
+	   OP CODE:		CLASSI
+	   	 
+	   	 DESCR:		vengono recuperate tutte le classi miur definite nel sistema
+	   	 			e per le quali esiste almeno 1 corso di studio associato
+
+	 INPUT OPT:		cla_m_id
+
+ VAL INPUT OPT:		?(cla_m_id è l'id della classe miur)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CLA MURST">
+							<Row Num="9">
+								<cla_m_id>9</cla_m_id>
+								<tipo_corso_cod>L2</tipo_corso_cod>
+								<des>Classe delle lauree in ingegneria dell'informazione</des>
+								<cod>9</cod>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$FACOLTA'
+
+	   	 DESCR:		vengono recuperate tutte le facoltà definite nel sistema, non 
+	   	 			vengono applicati filtri statici nella di retrieve. nella 
+	   	 			select list sono presenti i campi 'web_view_flg' e 'aa_dis_id' 
+	   	 			utilizzati in esse3 rispettivamente per individuare le facoltà 
+	   	 			visibilità sul web (web_view_flg=1) e non visualizzare le 
+	   	 			facoltà disattivate (aa_dis_id NOT NULL), tali condizioni non 
+	   	 			vengono ora applicate alla retrieve.
+
+	   OP CODE:		FACOLTA
+
+	 INPUT OPT:		fac_id
+ VAL INPUT OPT:		?(id facoltà)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(codice lingua risultato: "ita","eng"??)
+ 
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="FACLIST_WEB">
+							<Row Num="2">
+								<fac_id>1</fac_id>
+								<via>Via Inama, 5</via>
+								<citta>Trento</citta>
+								<prov>TN</prov>
+								<cap>38100</cap>
+								<cod>01</cod>
+								<des>Economia</des>
+								<web_view_flg>1</web_view_flg>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ATENEI
+
+	   	 DESCR:		vengono recuperati tutti gli atenei definiti nel sistema, non 
+	   	 			vengono applicati filtri statici nell fase di retrieve
+	   	 			nella select list è presente il campo 'web_flg' utilizzato in 
+	   	 			esse3 per individuare gli atenei visibili sul web
+
+	   OP CODE:		ATENEI
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="ATENEI_LOOKUP_WEB">
+							<Row Num="2">
+								<ateneo_id>77</ateneo_id>
+								<des>UNIVERSITÀ DEGLI STUDI DI VERONA</des>
+								<citta>VERONA</citta>
+								<prov>VR</prov>
+								<via>Via dell'Artigliere, 8 Pal. Giuliari</via>
+								<url_guida_web/>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$CORSI_DI_STUDIO
+
+	   	 DESCR:		vengono recuperati tutti i corsi di studio di tipo laurea triennale 
+	   	 			e che avevano un ordinamento attivo nell’anno accademico indicato 
+	   	 			dall’utente.
+	   	 			nella select list è presente il campo ‘p06_cds.web_view_flg’ utilizzato 
+	   	 			in esse3 per individuare i corsi visibili sul web con la seguente 
+	   	 			interpretazione:
+					- p06_cds.web_view_flg=0: nome del corso visibile e link al dettaglio disabilitato
+					- p06_cds.web_view_flg=1: nome del corso visibile e link al dettaglio abilitato
+					- p06_cds.web_view_flg=2: corso non visibile da web
+					questa condizione NON viene applicata nella retrive.
+
+					il parametro ‘tipo_corso’ è una stringa che indica i tipi di corso 
+					che devono essere recuperati, la stringa deve essere composta da 
+					tipologie di corso di esse3 comprese tra apici singoli e separate 
+					da virgole (es: ‘L1’, ‘L2’ oppure ‘LC5’, ‘LC6’ oppure ‘LS’ etc)
+					
+					Il parametro ‘norm_id’ consente di specificare una o più normative 
+					su cui filtrare i corsi da recuperare e può assumere valori gestiti 
+					dalla tabella P07_NORMATIVA. è possibile specificare che i corsi 
+					devono appartenere ad una o più normative, in questo secondo caso 
+					specificare i norm_id separati da virgole (es: norm_id=2,3)
+
+	   OP CODE:		CDS_FACOLTA
+
+	 INPUT MAN:		aa_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico: es. 2015)
+
+	 INPUT MAN:		tipo_corso (diventa facoltativo se viene passato il cds_id)
+ VAL INPUT MAN:		- L1	::	Corso di Laurea
+					- L2	::	Corso di Laurea
+					- LC5	::	Laurea Ciclo Unico 5 anni
+					- LC6	::	Laurea Ciclo Unico 6 anni
+					- LS	::	Corso di Laurea Specialistica
+					- LM	::	Corso di Laurea Magistrale
+					- LM5	::	Laurea Magistrale Ciclo Unico 5 anni
+					- LM6	::	Laurea Magistrale Ciclo Unico 6 anni
+					- D		::	Corso di Diploma
+					- D1	::	Corso di Dottorato
+					- DU	::	Diploma Universitario
+					- M1	::	Master di Primo Livello
+					- M2	::	Master di Secondo Livello
+					- S1	::	SCUOLA DI SPECIALIZZAZIONE
+					- SDFS	::	Scuola Diretta ai Fini Speciali
+					- SHSP	::	Corso di Specializzazione
+
+	 INPUT MAN:		cds_id (diventa facoltativo se viene passato il tipo_corso)
+ VAL INPUT MAN:		?(probabilmente id(int) del corso di studio: es. 59)
+
+	 INPUT OPT:		cla_id
+ VAL INPUT OPT:		?(probabilmente id(int) corso di laurea)
+
+	 INPUT OPT:		fac_id
+ VAL INPUT OPT:		?(probabilmente id(int) facoltà)
+
+	 INPUT OPT:		cds_des
+ VAL INPUT OPT:		?(probabilmente descrizione corso di studio)
+
+	 INPUT OPT:		aa_ord_id
+ VAL INPUT OPT:		?(probabilmente id(int) anno accademico dell'ordinamento)
+
+	 INPUT OPT:		norm_id
+ VAL INPUT OPT:		?(probabilmente id(int) normative filtro, valori in tabella P07_NORMATIVA)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CDSFACOLTA_WEB">
+							<Row Num="4">
+								<fac_id>1</fac_id>
+								<p06_cds_cod>0107C</p06_cds_cod>
+								<p06_cds_des>Economia e gestione Aziendale</p06_cds_des>
+								<p06_cds_rif_flg>0</p06_cds_rif_flg>
+								<tipi_corso_tipo_corso_des>Corso di Laurea</tipi_corso_tipo_corso_des>
+								<p06_cds_tipo_corso_cod>L2</p06_cds_tipo_corso_cod>
+								<cds_id>59</cds_id>
+								<p06_cdsord_aa_ord_id>2001</p06_cdsord_aa_ord_id>
+								<num_lingue>0</num_lingue>
+								<p06_cds_sett_flg>1</p06_cds_sett_flg>
+								<cla_m_id>17</cla_m_id>
+								<test_flg>1</test_flg>
+								<conc_flg>1</conc_flg>
+								<num_posti_tot/>
+								<p06_cds_um_peso_cod>C</p06_cds_um_peso_cod>
+								<p06_cds_tipo_spec_cod/>
+								<p06_cdsord_valore_min>180</p06_cdsord_valore_min>
+								<p06_cds_posti_stat_flg>0</p06_cds_posti_stat_flg>
+								<durata_anni>3</durata_anni>
+								<um_durata>A</um_durata>
+								<durata_effettiva>3</durata_effettiva>
+								<p06_cds_web_view_flg>1</p06_cds_web_view_flg>
+								<p06_cds_web_immat_flg>0</p06_cds_web_immat_flg>
+								<p07_cla_ateneo_cod>17</p07_cla_ateneo_cod>
+								<p06_cds_tipo_titit_cod>L2</p06_cds_tipo_titit_cod>
+								<p06_cds_ds_tipo_tit_des/>
+								<aa_att_id>2001</aa_att_id>
+								<istat_cod/>
+								<ciclo_istituito_flg>0</ciclo_istituito_flg>
+								<p06_cdsord_stato_cod>A</p06_cdsord_stato_cod>
+								<p06_cdsord_aa_ord_cess_id/>
+								<p06_cdsord_data_var>18/06/2003 00:00:00</p06_cdsord_data_var>
+								<url_sito_web/>
+								<url_info_web/>
+								<p06_cds_norm_id>2</p06_cds_norm_id>
+								<p07_normativa_norm_cod>DM509</p07_normativa_norm_cod>
+								<p07_normativa_des>D.M. 509/1999</p07_normativa_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$TIPI_CORSI_DI_STUDIO
+
+	   	 DESCR:		vengono recuperate tutte le tipologie di corso di esse3
+
+	   OP CODE:		TIPI_CORSO
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CORSO_LOOKUP">
+							<Row Num="1">
+								<tipo_corso_cod>LS</tipo_corso_cod>
+								<tipo_corso_des>Laurea specialistica</tipo_corso_des>
+								<durata_anni>2</durata_anni>
+								<valore_min>120</valore_min>
+								<rif_flg>0</rif_flg>
+								<tipo_titit_cod>LS</tipo_titit_cod>
+								<um_durata>A</um_durata>
+								<durata_effettiva>2</durata_effettiva>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$CLASSE_DI_LAUREA_DI_UN_CORSO_DI_STUDIO
+
+	   	 DESCR:		viene recuperata la descrizione della classe di laurea 
+	   	 			associata ad un corso di studio
+
+	   OP CODE:		CLASSE_CDS
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CLA_CDS_DES_LIN_WEB">
+							<Row Num="1">
+								<cla_a_id>14</cla_a_id>
+								<p06_cla_cds_cds_id>55</p06_cla_cds_cds_id>
+								<p07_cla_murst_cod>29</p07_cla_murst_cod>
+								<p07_cla_murst_tipo_corso_cod>L2</p07_cla_murst_tipo_corso_cod>
+								<p07_cla_murst_cla_m_id>29</p07_cla_murst_cla_m_id>
+								<p07_cla_murst_classe_miur_id>29</p07_cla_murst_classe_miur_id>
+								<des>Classe delle lauree in filosofia</des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DEGLI_ORDINAMENTI_DI_UN_CORSO_DI_STUDIO
+
+	   	 DESCR:		viene recuperato l'elenco degli ordinamenti definiti per un 
+	   	 			corso di studio
+
+	   OP CODE:		LISTA_CDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CDSORD_LIST_DES_LIN_WEB">
+							<Row Num="1">
+								<p06_stati_ord_des>Attivo</p06_stati_ord_des>
+								<aa_ord_id>2001</aa_ord_id>
+								<cds_id>55</cds_id>
+								<des>Post riforma triennale</des>
+								<cod>0403CR01</cod>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$DATI_DI_DETTAGLIO_DI_UN_ORDINAMENTO_DIDATTICO
+
+	   	 DESCR:		Vengono recuperati i dati di dettaglio di un ordinamento 
+	   	 			didattico di uno specifico corso di studio
+	   	 			tra i dati recuperati ci sono anche i campi descrittivi del 
+	   	 			cds richiesti dall'ects e da off.f, e sono
+	   	 			- Obiettivi formativi (campo OBIETT_FOR_DES)
+					- Conoscenze richieste per l’accesso (campo CONOSC_RICH_DES)
+					- Caratteristiche della prova finale (campo PROVA_FINALE_DES)
+					- Ambiti occupazionali previsti(campo DS_STATUS_PROF_DES)
+					- Accesso a studi ulteriori (campo DS_ACCESSO_STUDI_DES)
+
+	   OP CODE:		DETT_CDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="CDSORD_DES_LIN_WEB">
+							<Row Num="1">
+								<aa_ord_id>2001</aa_ord_id>
+								<cds_id>55</cds_id>
+								<des>Post riforma triennale</des>
+								<durata_anni>3</durata_anni>
+								<cod>0403CR01</cod>
+								<titolo/>
+								<pds_flg>0</pds_flg>
+								<valore_min>180</valore_min>
+								<ds_accesso_studi_des/>
+								<ds_status_prof_des/>
+								<prova_finale_des/>
+								<des_dott/>
+								<data_ini_ciclo/>
+								<dott_internaz_flg>0</dott_internaz_flg>
+								<max_mesi_estero/>
+								<cotutela_flg>0</cotutela_flg>
+								<ac_scelta>0</ac_scelta>
+								<gen_ad_app_flg>1</gen_ad_app_flg>
+								<obiett_for_des/>
+								<conosc_rich_des/>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DEI_PERCORSI_DI_UN_CORSO_DI_STUDIO
+
+	   	 DESCR:		viene recuperato l’elenco dei percorsi di studio definiti 
+	   	 			per un corso di studio. nella select list è presente il campo 
+	   	 			'p06_pdsord.web_viw_flg' utilizzato in ESSE3 per individuare 
+	   	 			i percorsi visibili sul web (p06_pdsord.web_view_flg=1), 
+	   	 			questa condizione non viene applicate alla retrive
+
+	   OP CODE:		LISTA_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="PDSORD_LIST_DES_LIN_WEB">
+							<Row Num="1">
+								<cds_id>55</cds_id>
+								<aa_ord_id>2001</aa_ord_id>
+								<pds_id>9999</pds_id>
+								<cod>P0001</cod>
+								<des>Standard</des>
+								<p06_stati_ord_des>Attivo</p06_stati_ord_des>
+								<web_immat_flg>0</web_immat_flg>
+								<web_view_flg>1</web_view_flg>
+								<stato_cod>A</stato_cod>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$DATI_DI_DETTAGLIO_DI_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		vengono recuperati i dati di dettaglio di un corso di studio,
+	   	 			compresi codice e descrizione dell'ordinamento e cds per i 
+	   	 			quali è definito
+
+	   OP CODE:		LISTA_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="PDSORD_DECODE_DES_LIN_WEB">
+							<Row Num="1">
+								<p06_pdsord_cds_id>55</p06_pdsord_cds_id>
+								<p06_pdsord_aa_ord_id>2001</p06_pdsord_aa_ord_id>
+								<p06_pdsord_pds_id>9999</p06_pdsord_pds_id>
+								<p06_cds_cod>0403C</p06_cds_cod>
+								<p06_cdsord_cod>0403CR01</p06_cdsord_cod>
+								<p06_pdsord_cod>P0001</p06_pdsord_cod>
+								<p06_cds_tipo_corso_cod>L2</p06_cds_tipo_corso_cod>
+								<p06_cds_um_peso_cod>C</p06_cds_um_peso_cod>
+								<um_peso_des>Crediti</um_peso_des>
+								<um_peso_um_peso_miur_cod>CFU</um_peso_um_peso_miur_cod>
+								<p06_pdsord_stato_cod>A</p06_pdsord_stato_cod>
+								<cds_des>Filosofia</cds_des>
+								<cdsord_des>Post riforma triennale</cdsord_des>
+								<pds_des>Standard</pds_des>
+								<tipo_corso_des>Corso di Laurea</tipo_corso_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DELLE_ATTIVITÀ_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		viene recuperato l’elenco delle attività didattiche offerte in un 
+	   	 			percorso di studio ed in determinato anno accademico. in questa 
+	   	 			fase viene recuperata solamente la descrizione dell’attività 
+	   	 			didattica, per ottenere altre informazioni sulle caratteristiche 
+	   	 			o sulla logistica di ogni attività offerta, è necessario 
+	   	 			effettuare dei join con altre operazioni di retrive. 
+	   	 			i campi da utilizzare per andare in join con altre retrive sono 
+	   	 				{cds_id, aa_ord_id, aa_off_id, pds_id, ad_id} per l’offerta, 
+	   	 			e
+	   	 				{cds_mut_id, aa_ord_mut_id, aa_off_id, pds_mut_id, ad_mut_id} 
+	   	 			per le informazioni logistiche 
+
+	   OP CODE:		LISTA_AD_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT OPT:		ad_id
+ VAL INPUT OPT:		?(probabilmente id attività didattica)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AD_PDSORD_DES_LIN">
+							<Row Num="1">
+								<p09_ad_pdsord_cds_id>55</p09_ad_pdsord_cds_id>
+								<p09_ad_pdsord_aa_ord_id>2001</p09_ad_pdsord_aa_ord_id>
+								<p09_ad_pdsord_aa_off_id>2005</p09_ad_pdsord_aa_off_id>
+								<p09_ad_pdsord_pds_id>9999</p09_ad_pdsord_pds_id>
+								<p09_ad_pdsord_ad_id>219</p09_ad_pdsord_ad_id>
+								<p09_ad_gen_cod>30188</p09_ad_gen_cod>
+								<ad_gen_des>Linguistica generale (A)</ad_gen_des>
+								<p09_ad_pdsord_peso_ar>3</p09_ad_pdsord_peso_ar>
+								<p09_ad_cds_no_lez_flg>0</p09_ad_cds_no_lez_flg>
+								<p09_ad_cds_cds_mut_id/>
+								<p09_ad_cds_ad_mut_id/>
+								<p09_ad_cds_aa_ord_mut_id/>
+								<p09_ad_cds_pds_mut_id/>
+								<cds_id_log>55</cds_id_log>
+								<aa_ord_id_log>2001</aa_ord_id_log>
+								<pds_id_log>9999</pds_id_log>
+								<ad_id_log>219</ad_id_log>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$PERIODO_DIDATTICO_PER_ATTIVITA_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		vengono recuperate le informazioni sul periodo didattico derivate dalla 
+	   	 			per attività didattiche offerte in un percorso di studio ed in determinato 
+	   	 			anno accademico. in esse3 non è obbligatorio che un’attività didattica 
+	   	 			offerta possieda sempre una logistica collegata, pertanto potrebbe 
+	   	 			verificarsi che in questa retrive non siano presenti tutte le attività 
+	   	 			realmente offerte nel percorso di studio e per l’anno accademico in esame.
+
+	   OP CODE:		INFO_PART_AD_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AD_PDSORD_LOG_WEB">
+							<Row Num="1">
+								<p09_ad_log_pds_cds_id>55</p09_ad_log_pds_cds_id>
+								<p09_ad_log_pds_aa_ord_id>2001</p09_ad_log_pds_aa_ord_id>
+								<p09_ad_log_pds_pds_id>9999</p09_ad_log_pds_pds_id>
+								<p09_ad_log_pds_ad_id>1930</p09_ad_log_pds_ad_id>
+								<p09_ad_log_pds_part_cod>A1</p09_ad_log_pds_part_cod>
+								<p09_ad_log_pds_ad_log_id>6806</p09_ad_log_pds_ad_log_id>
+								<p09_ad_log_pds_aa_off_id>2005</p09_ad_log_pds_aa_off_id>
+								<fat_part_des>Ciclo Annuale Unico</fat_part_des>
+								<p06_part_sys_flg>1</p06_part_sys_flg>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$INFORMAZIONI_LOGISTICHE_PER_ATTIVITÀ_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		vengono recuperate le informazioni derivate dalla logistica 
+	   	 			(periodo didattico e partizionamento studenti) per attività 
+	   	 			didattiche offerte in un percorso di studio ed in determinato 
+	   	 			anno accademico. in esse3 non è obbligatorio che un’attività 
+	   	 			didattica offerta possieda sempre una logistica collegata, 
+	   	 			pertanto potrebbe verificarsi che in questa retrive non siano 
+	   	 			presenti tutte le attività realmente offerte nel percorso di 
+	   	 			studio e per l’anno accademico in esame.
+
+	   OP CODE:		INFO_LOG_AD_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT OPT:		ad_id
+ VAL INPUT OPT:		?(probabilmente id attività didattica)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AD_PART_LIST_DES_LIN_WEB">
+							<Row Num="1">
+								<cds_id>55</cds_id>
+								<aa_off_id>2005</aa_off_id>
+								<ad_id>169</ad_id>
+								<aa_ord_id>2001</aa_ord_id>
+								<pds_id>9999</pds_id>
+								<fat_part_cod>N0</fat_part_cod>
+								<dom_part_cod>N0</dom_part_cod>
+								<part_cod>S1</part_cod>
+								<ad_log_id>6839</ad_log_id>
+								<dom_part_des>Nessun partizionamento</dom_part_des>
+								<p06_part_des>Primo Ciclo Semestrale</p06_part_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$DOCENTI_PER_ATTIVITÀ_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		viene recuperato l'elenco dei docenti associati ad una o più
+	   	 			attività didattiche, a seconda che l'operazione venga richiesta
+	   	 			per una singola attività contestualizzata (specificando in 
+	   	 			input tutti i dati della contestualizzazione cds_id, aa_ord_id, 
+	   	 			aa_off_id, pds_id e ad_id) o per un'attività 'fisica' 
+	   	 			(specificando in input il paramentro ad_log_id).
+	   	 			l’elenco dei docenti recuperati può contenere o tutti quelli 
+	   	 			associati all’attività didattica (per ognuno dei quali viene 
+	   	 			indicato il ruolo nei campi titolare_flg, resp_did_flg e lez_flg) 
+	   	 			se non viene specificato nulla o solamente i titolari se viene 
+	   	 			specificato il parametro opzionale tit_flg=1
+
+	   OP CODE:		LISTA_DOCENTI_AD
+
+INPUT MAN CALL:		{cds_id, aa_ord_id, aa_off_id, pds_id, ad_id} || {ad_log_id}
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		ad_id
+ VAL INPUT MAN:		?(probabilmente id attività didattica)
+
+ 	 INPUT MAN:		ad_log_id
+ VAL INPUT MAN:		?(probabilmente id attività didattica : logistica ??)
+
+	 INPUT OPT:		tit_flg
+ VAL INPUT OPT:		?(0 o 1: display docenti tutti o solo titolari risp.)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AD_DOC_LIST_WEB">
+							<Row Num="1">
+								<resp_did_flg>1</resp_did_flg>
+								<docente_id>54880</docente_id>
+								<part_cod>B1</part_cod>
+								<ad_log_id>457</ad_log_id>
+								<matricola>54880</matricola>
+								<titolare_flg>1</titolare_flg>
+								<cognome>FOLGHERAITER</cognome>
+								<nome>FABIO</nome>
+								<docenti_hyperlink/>
+								<fat_part_cod>N0</fat_part_cod>
+								<dom_part_cod>N0</dom_part_cod>
+								<p09_ad_log_pds_aa_off_id>2003</p09_ad_log_pds_aa_off_id>
+								<p09_ad_log_pds_cds_id>46</p09_ad_log_pds_cds_id>
+								<p09_ad_log_pds_aa_ord_id>2002</p09_ad_log_pds_aa_ord_id>
+								<p09_ad_log_pds_pds_id>9999</p09_ad_log_pds_pds_id>
+								<p09_ad_log_pds_ad_id>2151</p09_ad_log_pds_ad_id>
+								<p09_ud_doc_part_ud_id>1</p09_ud_doc_part_ud_id>
+								<p09_ud_doc_part_lez_flg>1</p09_ud_doc_part_lez_flg>
+								<p09_ud_doc_part_ges_desc_ad_flg>1</p09_ud_doc_part_ges_desc_ad_flg>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$REGOLE_DI_SCELTA_PER_ATTIVITÀ_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
+
+	   	 DESCR:		vengono recuperate le informazioni derivate dal regolamento 
+	   	 			di scelta le attività didattiche offerte in un percorso di 
+	   	 			studio ed in determinato anno accademico. in esse3 non è 
+	   	 			obbligatorio che un’attività didattica offerta sia sempre 
+	   	 			presente nel regolamento associato al relativo percorso di 
+	   	 			studio, pertanto potrebbe verificarsi che in questa retrive 
+	   	 			non siano presenti tutte le attività realmente offerte nel 
+	   	 			percorso di studio e per l’anno accademico in esame.
+
+	   OP CODE:		INFO_REGSCE_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		anno_coorte
+ VAL INPUT MAN:		?(probabilmente anno regolamento di scelta attività didattiche)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="AD_PDSORD_REGSCE_WEB">
+							<Row Num="1">
+								<cds_id>13</cds_id>
+								<aa_ord_id>2004</aa_ord_id>
+								<aa_id>2005</aa_id>
+								<aa_off_id>2005</aa_off_id>
+								<ad_id>155</ad_id>
+								<stato_att_cod>A</stato_att_cod>
+								<anno_corso>1</anno_corso>
+								<ad_obl>1</ad_obl>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$SEGMENTI_DI_UN_PERCORSO_DI_STUDIO_O_ATTIVITÀ_DIDATTICA_OFFERTA
+
+	   	 DESCR:		vengono recuperate sia le informazioni definite nei segmenti 
+	   	 			che compongono l’attività didattica (TAF, SSD, numero di ore, 
+	   	 			etc), che quelle relative alle offerte nelle quali è presente 
+	   	 			tale attività (facoltà, corso di studio, etc), i cfu recuperati 
+	   	 			su ogni riga sono quelli specifici del segmento. 
+	   	 			se viene utilizzato in input il parametro ad_id, allora le 
+	   	 			informazioni recuperate sono relative ad una sola AD, mentre 
+	   	 			ignorando questo parametro le retrive recupera tutti i segmenti 
+	   	 			che compongono tutte le AD offerte in un percorso di studio e 
+	   	 			per un anno accademico quando richiamata con i parametri cds_id, 
+	   	 			aa_ord_id e pds_id, e tutte le attività didattiche offerte su 
+	   	 			vari percorsi e facenti capo alla stessa condivisione logistica 
+	   	 			quando richiamata con il parametro ad_log_id. 
+	   	 			il numero di segmenti di ogni attività didattica può variare da 1 a n.
+	   	 			Gli attributi chiave dell’attività didattica offerta sono [cds_id, 
+	   	 			aa_ord_id, pds_id,ad_id]. 
+	   	 			inoltre le attività didattiche recuperate vengono replicate 
+	   	 			per quante sono le partizioni studente definite su di esse nella 
+	   	 			logistica che condividono.
+
+	   OP CODE:		SEG_PDSORD
+
+INPUT MAN CALL:		aa_off_id && 
+					{cds_id, aa_ord_id, pds_id} || {ad_log_id}
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+  	 INPUT MAN:		ad_log_id
+ VAL INPUT MAN:		?(probabilmente id attività didattica : logistica ??)
+
+	 INPUT OPT:		ad_id
+ VAL INPUT OPT:		?(probabilmente id attività didattica)
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="SEG_PDSORD_DES_LIN_WEB">
+							<Row Num="1">
+								<aa_off_id>2004</aa_off_id>
+								<cds_id>13</cds_id>
+								<ad_id>155</ad_id>
+								<aa_ord_id>2004</aa_ord_id>
+								<seg_id>1</seg_id>
+								<pds_id>9999</pds_id>
+								<p09_seg_cds_sett_cod>CHIM/07</p09_seg_cds_sett_cod>
+								<p09_seg_cds_disc_cod/>
+								<p07_disc_des/>
+								<freq_obblig_flg>0</freq_obblig_flg>
+								<peso>6</peso>
+								<p09_seg_cds_tipo_cre_cod>LEZ</p09_seg_cds_tipo_cre_cod>
+								<ore_min_freq>0</ore_min_freq>
+								<ud_id>1</ud_id>
+								<des>Chimica 1</des>
+								<p09_seg_cds_dur_uni_val>60</p09_seg_cds_dur_uni_val>
+								<tipi_cred_des>Lezione</tipi_cred_des>
+								<tipi_af_des>Base</tipi_af_des>
+								<p07_sett_des>FONDAMENTI CHIMICI DELLE TECNOLOGIE</p07_sett_des>
+								<p09_ad_gen_cod>40013</p09_ad_gen_cod>
+								<ad_des>Chimica 1</ad_des>
+								<p06_fac_cds_fac_id>14</p06_fac_cds_fac_id>
+								<tipi_af_tipo_af_cod>B</tipi_af_tipo_af_cod>
+								<fac_des>Ingegneria</fac_des>
+								<cds_des>Ingegneria Civile (triennale)</cds_des>
+								<cdsord_des>Post riforma triennale</cdsord_des>
+								<pds_des>Standard</pds_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$CONTENUTI_DI_UN’ATTIVITÀ_DIDATTICA_OFFERTA
+
+	  	 DESCR:		vengono recuperati i contenuti didattici o di una specifica 
+					attività offerta in un percorso di studio ed in un anno 
+					accademico, oppure di una “attività fisica” (ovvero definiti 
+					per l’insieme delle attività didattiche offerte che condividono 
+					la logistica). Tali contenuti in esse3 possono essere 
+					ulteriormente differenziati in base alla partizione studente 
+					(ovvero A-K L-Z, matricole pari e dispari, etc). 
+					nella select list viene recuperato il campo “p09_ad_log_pds.des_ad_pubbl_flg” 
+					che indica se i contenuti sono stati o meno pubblicati dal 
+					docente (1 = pubblicati, 0 = non pubblicati), la pubblicazione 
+					viene utilizzata nel nostro sistema per consentire uno stato 
+					di lavorazione senza rendere visibile verso l’esterno il lavoro 
+					parziale svolto fino a quel momento. 
+					nella retrive non viene applicata nessuna condizione sul campo 
+					p09_ad_log_pds.des_ad_pubbl_flg.
+
+	   OP CODE:		CONTENUTI_AD_PDSORD
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+INPUT OPT CALL:		{cds_id, aa_ord_id, pds_id, ad_id} || {ad_log_id}
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+ 	 INPUT OPT:		cds_id
+ VAL INPUT OPT:		?(probabilmente id corso di studio)
+
+	 INPUT OPT:		aa_ord_id
+ VAL INPUT OPT:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT OPT:		pds_id
+ VAL INPUT OPT:		?(probabilmente id percorso di studio)
+
+	 INPUT OPT:		ad_id
+ VAL INPUT OPT:		?(probabilmente id attività didattica)
+
+  	 INPUT OPT:		ad_log_id
+ VAL INPUT OPT:		?(probabilmente id attività didattica : logistica ??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="PROGRAMMA_AD_WEB">
+							<Row Num="1">
+								<fat_part_cod>A3</fat_part_cod>
+								<dom_part_cod>AL</dom_part_cod>
+								<ad_log_id>7458</ad_log_id>
+								<des_ad_pubbl_flg>1</des_ad_pubbl_flg>
+								<testi_rif_des>Per gli argomenti presentat.........</testi_rif_des>
+								<dom_part_des>'Iniziali cognome A-L'</dom_part_des>
+								<contenuti_des>Nozioni introduttive. Grandezze fisiche....</contenuti_des>
+								<obiett_form_des>Il corso fornisce i concetti...</obiett_form_des>
+								<prerequisiti_des>Conoscenze di base di matematica e.. </prerequisiti_des>
+								<metodi_did_des>Lezioni frontali in classe...</metodi_did_des>
+								<metodi_did_des>Lezioni frontali in classe...</metodi_did_des>
+								<mod_ver_appr_des>Prova scritta e prova...</mod_ver_appr_des>
+								<altre_info_des/>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$REGOLE_DI_PERCORSO–TIPI_DI_ATTIVITÀ_FORMATIVE
+
+	  	 DESCR:		Viene recuperato l’elenco dei tipi di attività formative 
+	  	 			previste per un determinato regolamento di percorso.
+
+	   OP CODE:		REGP_TAF
+
+ 	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		prof_cod
+ VAL INPUT MAN:		?(probabilmente id professore ??)
+
+	 INPUT MAN:		aa_reg_id
+ VAL INPUT MAN:		?(probabilmente id regolamento per anno accademico)
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="REGP_TAF_WEB">
+							<Row Num="1">
+								<cds_id>13</cds_id>
+								<aa_ord_id>2004</aa_ord_id>
+								<pds_id>9999</pds_id>
+								<ins_id>3</ins_id>
+								<prof_cod>1</prof_cod>
+								<tipi_profstu_des>Studente Standard</tipi_profstu_des>
+								<cfu_max>61</cfu_max>
+								<cfu_min>48</cfu_min>
+								<tipo_af_cod>A</tipo_af_cod>
+								<tipi_af_des>Base</tipi_af_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$REGOLE_DI_PERCORSO–AMBITI_DISCIPLINARI
+
+	  	 DESCR:		viene recuperato l’elenco degli ambiti disciplinari previsti 
+	  	 			per un determinato regolamento di percorso.
+
+	   OP CODE:		REGP_AMB
+
+ 	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		prof_cod
+ VAL INPUT MAN:		?(probabilmente id professore ??)
+
+	 INPUT MAN:		aa_reg_id
+ VAL INPUT MAN:		?(probabilmente id regolamento per anno accademico)
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="REGP_AMB_WEB">
+							<Row Num="1">
+								<cds_id>13</cds_id>
+								<aa_ord_id>2004</aa_ord_id>
+								<pds_id>9999</pds_id>
+								<ins_id>3</ins_id>
+								<prof_cod>1</prof_cod>
+								<tipi_profstu_des>Studente Standard</tipi_profstu_des>
+								<tipo_af_cod>A</tipo_af_cod>
+								<cfu_min>18</cfu_min>
+								<cfu_max>18</cfu_max>
+								<amb_id>451</amb_id>
+								<p07_ambiti_des>Fisica e chimica</p07_ambiti_des>
+								<tipi_af_des>Base</tipi_af_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DELLE_ATTIVITÀ_DIDATTICHE_'FISICHE' 
+
+	  	 DESCR:		Viene recuperato l’elenco delle attività didattiche fisiche, 
+	  	 			ovvero in termini di esse3, delle condivisioni logistiche, 
+	  	 			offerte in un anno accademico. 
+	  	 			per ogni condivisione logistica vengono recuperate tante righe 
+	  	 			per quante sono le descrizioni distinte delle attività didattiche 
+	  	 			contenute (indipendentemente dal codice, dal partizionamento 
+	  	 			studenti o da differenti contestualizzazioni su percorsi)
+
+	   OP CODE:		LISTA_AD_FISICHE
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+ 	 INPUT OPT:		fac_id
+ VAL INPUT OPT:		?(probabilmente id facoltà)
+
+ 	 INPUT OPT:		cds_id
+ VAL INPUT OPT:		?(probabilmente id corso di studio)
+
+  	 INPUT OPT:		doc_des
+ VAL INPUT OPT:		?(probabilmente descrizione docente ??)
+
+ 	 INPUT OPT:		att_did_des
+ VAL INPUT OPT:		?(probabilmente descrizione attività didattica ??)
+
+ 	 INPUT OPT:		titolare_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente è titolare)
+
+ 	 INPUT OPT:		resp_ud_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente è responsabile di unità didattica)
+
+ 	 INPUT OPT:		lezione_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente fa lezione ??)
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="LISTA_AD_FISICHE">
+							<Row Num="1">
+								<cod>21090</cod>
+								<p09_ud_log_pds_ad_log_id>6544</p09_ud_log_pds_ad_log_id>
+								<ad_gen_des>Analisi costi-benefici</ad_gen_des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DELLE_ATTIVITÀ_DIDATTICHE_'FISICHE'_CON_DOCENTI_E_PARTIZIONI 
+
+	  	 DESCR:		Viene recuperato l’elenco delle attività didattiche fisiche, 
+	  	 			ovvero in termini di esse3, delle condivisioni logistiche, 
+	  	 			offerte in un anno accademico. 
+	  	 			per ogni condivisione logistica vengono recuperate tante righe 
+	  	 			per quante sono le descrizioni distinte delle attività didattiche 
+	  	 			contenute (indipendentemente dal codice, dal partizionamento 
+	  	 			studenti o da differenti contestualizzazioni su percorsi)
+
+	   OP CODE:		LISTA_AD_FISICHE_DOCENTE
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+ 	 INPUT OPT:		fac_id
+ VAL INPUT OPT:		?(probabilmente id facoltà)
+
+ 	 INPUT OPT:		cds_id
+ VAL INPUT OPT:		?(probabilmente id corso di studio)
+
+  	 INPUT OPT:		doc_des
+ VAL INPUT OPT:		?(probabilmente descrizione docente ??)
+
+ 	 INPUT OPT:		att_did_des
+ VAL INPUT OPT:		?(probabilmente descrizione attività didattica ??)
+
+ 	 INPUT OPT:		titolare_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente è titolare)
+
+ 	 INPUT OPT:		resp_ud_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente è responsabile di unità didattica)
+
+ 	 INPUT OPT:		lezione_flg
+ VAL INPUT OPT:		?(probabilmente flag che definisce se il docente fa lezione ??)
+
+ 	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="LISTA_AD_FISICHE_DOCENTE">
+							<Row Num="1">
+								<cod>21090</cod>
+								<p09_ud_log_pds_ad_log_id>6544</p09_ud_log_pds_ad_log_id>
+								<ad_gen_des>Analisi costi-benefici</ad_gen_des>
+								<p09_ud_doc_part_fat_part_cod>N0</p09_ud_doc_part_fat_part_cod>
+								<p09_ud_doc_part_dom_part_cod>N0</p09_ud_doc_part_dom_part_cod>
+								<partizione>Nessun partizionamento</partizione>
+								<docenti_docente_id>677543</docenti_docente_id>
+								<docenti_cognome>ROSSI</docenti_cognome>
+								<docenti_nome>MARIO</docenti_nome>
+								<p09_ud_doc_part_titolare_flg>1</p09_ud_doc_part_titolare_flg>
+								<p09_ud_doc_part_resp_did_flg>1</p09_ud_doc_part_resp_did_flg>
+								<p09_ud_doc_part_lez_flg>1</p09_ud_doc_part_lez_flg>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$ELENCO_DELLE_UNITÀ_DIDATTICHE_DI_UNA_SPECIFICA_ATTIVITÀ_DIDATTICA_OFFERTA
+
+	   	 DESCR:		viene recuperato l'elenco delle unità didattiche definite per
+	   	 			una specifica attività didattica offerta in un percorso di 
+	   	 			studio e anno accademico
+
+	   OP CODE:		LISTA_UD_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+
+	 INPUT OPT:		lingua_iso6392_cod
+ VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="UD_PDSORD_DES_LIN_WEB">
+							<Row Num="1">
+								<cds_id>13</cds_id>
+								<aa_off_id>2005</aa_off_id>
+								<ad_id>155</ad_id>
+								<aa_ord_id>2004</aa_ord_id>
+								<pds_id>9999</pds_id>
+								<ud_id>1</ud_id>
+								<cod/>
+								<ud_log_id>1</ud_log_id>
+								<des>Chimica 1</des>
+							</Row>
+						</DataSet>
+					</WS>
+
+################################################################################
+################################################################################
+
+	   		OP: 	$COMUNITÀ_WEB_PER_UN’ATTIVITÀ_DIDATTICA_OFFERTA
+
+	   	 DESCR:		viene recuperata la web community definita per una specifica 
+	   	 			attività didattica offerta in un percorso di studio e anno 
+	   	 			accademico
+
+	   OP CODE:		COMUNITA_AD_PDSORD
+
+	 INPUT MAN:		cds_id
+ VAL INPUT MAN:		?(probabilmente id corso di studio)
+
+	 INPUT MAN:		aa_ord_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico ordinamento)
+
+	 INPUT MAN:		pds_id
+ VAL INPUT MAN:		?(probabilmente id percorso di studio)
+
+	 INPUT MAN:		aa_off_id
+ VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
+	 
+	 INPUT MAN:		ad_id
+ VAL INPUT MAN:		?(probabilmente id attività didattica)
+
+	    OUTPUT:		
+	   				<?xml version="1.0" encoding="ISO-8859-1"?>
+					<WS>
+						<DataSet LocalEntityName="COMUNITA_WEB">
+							<Row Num="1">
+								<comunita_id>382</comunita_id>
+								<ambiente_id>2</ambiente_id>
+								<des>Fisica tecnica 1</des>
+								<stato>A</stato>
+								<profilo_def_id>3</profilo_def_id>
+								<sys_flg>0</sys_flg>
+								<grp_id>0</grp_id>
+								<p18_classe_cls_id>435</p18_classe_cls_id>
+								<p18_classe_des>Classe globale comunità 338</p18_classe_des>
+								<nota>Comunità Generata Automaticamente ( 7460 )</nota>
+								<p18_classe_email_amm/>
+								<p18_ambiente_cod>AD</p18_ambiente_cod>
+								<tipo_com_cod>A</tipo_com_cod>
+								<pubblico_def_flg>0</pubblico_def_flg>
+								<fac_fac_id>0</fac_fac_id>
+								<fac_aa_off_id>0</fac_aa_off_id>
+							</Row>
+						</DataSet>
+					</WS>
