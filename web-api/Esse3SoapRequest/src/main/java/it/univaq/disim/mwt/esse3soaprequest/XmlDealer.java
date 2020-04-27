@@ -1,3 +1,5 @@
+package it.univaq.disim.mwt.esse3soaprequest;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Level;
@@ -30,17 +32,6 @@ public class XmlDealer {
     
     public static String getContentString(String xmlResponse){
         try {
-            return getResponseBody(xmlResponse).getTextContent();
-            
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
-            Logger.getLogger(XmlDealer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
-    }
-    
-    public static Node getContentNode(String xmlResponse){
-        try {
             return getResponseBody(xmlResponse);
             
         } catch (ParserConfigurationException | SAXException | IOException ex) {
@@ -50,12 +41,28 @@ public class XmlDealer {
         return null;
     }
     
-    private static Node getResponseBody(String xmlResponse) throws ParserConfigurationException, SAXException, IOException{
+    public static Document getContentDocument(String xmlResponse){
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            String node = getResponseBody(xmlResponse);
+                                  
+            return builder.parse(new InputSource(new StringReader(node)));
+                                
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            Logger.getLogger(XmlDealer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    private static String getResponseBody(String xmlResponse) throws ParserConfigurationException, SAXException, IOException{
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new InputSource(new StringReader(xmlResponse)));
         
-        return document.getElementsByTagName("ns1:fn_retrieve_xml_pResponse").item(0);
+        return document.getElementsByTagName("ns1:fn_retrieve_xml_pResponse").item(0).getTextContent();
     }
     
     private static void xmlParser(String nonFormattedXml) throws SAXException, IOException, ParserConfigurationException, TransformerConfigurationException, TransformerException{
