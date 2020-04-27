@@ -1,5 +1,3 @@
-package it.univaq.disim.mwt.esse3soaprequest;
-
 import java.util.HashMap;
 import java.util.Map;
 

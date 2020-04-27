@@ -1,5 +1,3 @@
-package it.univaq.disim.mwt.esse3soaprequest;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Level;
