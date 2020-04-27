@@ -750,7 +750,7 @@ INPUT MAN CALL:		{cds_id, aa_ord_id, aa_off_id, pds_id, ad_id} || {ad_log_id}
 	   		OP: 	$REGOLE_DI_SCELTA_PER_ATTIVITÀ_DIDATTICHE_OFFERTE_IN_UN_PERCORSO_DI_STUDIO
 
 	   	 DESCR:		vengono recuperate le informazioni derivate dal regolamento 
-	   	 			di scelta le attività didattiche offerte in un percorso di 
+	   	 			di scelta delle attività didattiche offerte in un percorso di 
 	   	 			studio ed in determinato anno accademico. in esse3 non è 
 	   	 			obbligatorio che un’attività didattica offerta sia sempre 
 	   	 			presente nel regolamento associato al relativo percorso di 

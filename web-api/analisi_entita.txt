@@ -1,0 +1,455 @@
+
+[ANNO_ACCADEMICO]
+    aa_id = 2005
+    des = 2005/2006
+    data_inizio = 01/09/2005 00:00:00
+    data_fine = 31/08/2006 00:00:00
+
+- GET_CURR_AA,
+- AA_LOOKUP (lista)
+
+################################################################################
+################################################################################
+
+[CLASSE_MIUR]
+    cla_m_id = 9
+    tipo_corso_cod = L2
+    des = classe delle lauree in ingegneria dell'informazione
+    cod = 9
+
+- CLASSI
+
+################################################################################
+################################################################################
+
+[FACOLTA]
+    fac_id = 1
+    via = via inama 5
+    citta = trento
+    prov = tn
+    cap = 38100
+    cod = 01
+    des = economia
+    web_view_flag = 1
+
+- FACOLTA
+
+################################################################################
+################################################################################
+
+[ATENEI]
+    ateneo_id = 77
+    des = università degli studi di verona
+    citta = verona
+    prov = vr
+    via = via dell'artigliere...
+    url_guida_web = (void)
+
+- ATENEI
+
+################################################################################
+################################################################################
+
+[CORSO_DI_STUDIO]
+    fac_id = 1
+    p06_cds_cod = 0107C
+    p06_cds_des = Economia e gestione Aziendale
+    p06_cds_rif_flg = 0
+    tipi_corso_tipo_corso_des = Corso di Laurea
+    p06_cds_tipo_corso_cod = L2
+    cds_id = 59
+    p06_cdsord_aa_ord_id = 2001
+    num_lingue = 0
+    p06_cds_sett_flg = 1
+    cla_m_id = 17
+    test_flg = 1
+    conc_flg = 1
+    num_posti_tot = (void)
+    p06_cds_um_peso_cod = C
+    p06_cds_tipo_spec_cod = (void)
+    p06_cdsord_valore_min = 180
+    p06_cds_posti_stat_flg = 0
+    durata_anni = 3
+    um_durata = A
+    durata_effettiva = 3
+    p06_cds_web_view_flg = 1
+    p06_cds_web_immat_flg = 0
+    p07_cla_ateneo_cod = 17
+    p06_cds_tipo_titit_cod = L2
+    p06_cds_ds_tipo_tit_des = (void)
+    aa_att_id = 2001
+    istat_cod = (void)
+    ciclo_istituito_flg = 0
+    p06_cdsord_stato_cod = A
+    p06_cdsord_aa_ord_cess_id = (void)
+    p06_cdsord_data_var = 18/06/2003 00:00:00
+    url_sito_web = (void)
+    url_info_web = (void)
+    p06_cds_norm_id = 2
+    p07_normativa_norm_cod = DM509
+    p07_normativa_des = D.M. 509/1999
+
+- CDS_FACOLTA
+
+################################################################################
+################################################################################
+
+[TIPO_CORSO_DI_STUDIO]
+    tipo_corso_cod = LS
+    tipo_corso_des = Laurea specialistica
+    durata_anni = 2
+    valore_min = 120
+    rif_flg = 0
+    tipo_titit_cod = LS
+    um_durata = A
+    durata_effettiva = 2
+
+- TIPI_CORSO
+
+################################################################################
+################################################################################
+
+[CLASSE_DI_LAUREA] (corso di studio)
+    cla_a_id = 14
+    p06_cla_cds_cds_id = 55
+    p07_cla_murst_cod = 29
+    p07_cla_murst_tipo_corso_cod = L2
+    p07_cla_murst_cla_m_id = 29
+    p07_cla_murst_classe_miur_id = 29
+    des = Classe delle lauree in filosofia
+
+- CLASSE_CDS
+
+################################################################################
+################################################################################
+
+[ORDINAMENTO] (corso di studio)
+    p06_stati_ord_des = Attivo
+    aa_ord_id = 2001
+    cds_id = 55
+    des = Post riforma triennale
+    cod = 0403CR01
+
+- LISTA_CDSORD (lista)
+
+################################################################################
+################################################################################
+
+[DATI_DI_DETTAGLIO] (ordinamento) (corso di studio)
+    aa_ord_id = 2001
+    cds_id = 55
+    des = Post riforma triennale
+    durata_anni = 3
+    cod = 0403CR01
+    titolo = (void)
+    pds_flg = 0
+    valore_min = 180
+    ds_accesso_studi_des = (void)
+    ds_status_prof_des = (void)
+    prova_finale_des = (void)
+    des_dott = (void)
+    data_ini_ciclo = (void)
+    dott_internaz_flg = 0
+    max_mesi_estero = (void)
+    cotutela_flg = 0
+    ac_scelta = 0
+    gen_ad_app_flg = 1
+    obiett_for_des = (void)
+    conosc_rich_des = (void)
+
+- DETT_CDSORD
+
+################################################################################
+################################################################################
+
+[PERCORSO] (corso di studio)
+    cds_id = 55
+    aa_ord_id = 2001
+    pds_id = 9999
+    cod = P0001
+    des = Standard
+    p06_stati_ord_des = Attivo
+    web_immat_flg = 0
+    web_view_flg = 1
+    stato_cod = A
+
+- LISTA_PDSORD (lista)
+
+################################################################################
+################################################################################
+
+[DATI_DI_DETTAGLIO] (percorso) (corso di studio)
+    p06_pdsord_cds_id = 55
+    p06_pdsord_aa_ord_id = 2001
+    p06_pdsord_pds_id = 9999
+    p06_cds_cod = 0403C
+    p06_cdsord_cod = 0403CR01
+    p06_pdsord_cod = P0001
+    p06_cds_tipo_corso_cod = L2
+    p06_cds_um_peso_cod = C
+    um_peso_des = Crediti
+    um_peso_um_peso_miur_cod = CFU
+    p06_pdsord_stato_cod = A
+    cds_des = Filosofia
+    cdsord_des = Post riforma triennale
+    pds_des = Standard
+    tipo_corso_des = Corso di Laurea
+
+- LISTA_PDSORD (lista)
+
+################################################################################
+################################################################################
+
+[ATTIVITA_DIDATTICA] (percorso) (corso di studio)
+    p09_ad_pdsord_cds_id = 55
+    p09_ad_pdsord_aa_ord_id = 2001
+    p09_ad_pdsord_aa_off_id = 2005
+    p09_ad_pdsord_pds_id = 9999
+    p09_ad_pdsord_ad_id = 219
+    p09_ad_gen_cod = 30188
+    ad_gen_des = Linguistica generale (A)
+    p09_ad_pdsord_peso_ar = 3
+    p09_ad_cds_no_lez_flg = 0
+    p09_ad_cds_cds_mut_id = (void)
+    p09_ad_cds_ad_mut_id = (void)
+    p09_ad_cds_aa_ord_mut_id = (void)
+    p09_ad_cds_pds_mut_id = (void)
+    cds_id_log = 55
+    aa_ord_id_log = 2001
+    pds_id_log = 9999
+    ad_id_log = 219
+
+- LISTA_AD_PDSORD (lista)
+
+################################################################################
+################################################################################
+
+[PERIODO_DIDATTICO] (attività didattica) (percorso) (corso di studio)
+    p09_ad_log_pds_cds_id = 55
+    p09_ad_log_pds_aa_ord_id = 2001
+    p09_ad_log_pds_pds_id = 9999
+    p09_ad_log_pds_ad_id = 1930
+    p09_ad_log_pds_part_cod = A1
+    p09_ad_log_pds_ad_log_id = 6806
+    p09_ad_log_pds_aa_off_id = 2005
+    fat_part_des = Ciclo Annuale Unico
+    p06_part_sys_flg = 1
+
+- INFO_PART_AD_PDSORD
+
+################################################################################
+################################################################################
+
+[INFOMAZIONI_LOGISTICHE] (attività didattica) (percorso) (corso di studio)
+    cds_id = 55
+    aa_off_id = 2005
+    ad_id = 169
+    aa_ord_id = 2001
+    pds_id = 9999
+    fat_part_cod = N0
+    dom_part_cod = N0
+    part_cod = S1
+    ad_log_id = 6839
+    dom_part_des = Nessun partizionamento
+    p06_part_des = Primo Ciclo Semestrale
+
+- INFO_LOG_AD_PDSORD
+
+################################################################################
+################################################################################
+
+[DOCENTE] (attività didattica) (percorso) (corso di studio)
+    resp_did_flg = 1
+    docente_id = 54880
+    part_cod = B1
+    ad_log_id = 457
+    matricola = 54880
+    titolare_flg = 1
+    cognome = FOLGHERAITER
+    nome = FABIO
+    docenti_hyperlink = (void)
+    fat_part_cod = N0
+    dom_part_cod = N0
+    p09_ad_log_pds_aa_off_id = 2003
+    p09_ad_log_pds_cds_id = 46
+    p09_ad_log_pds_aa_ord_id = 2002
+    p09_ad_log_pds_pds_id = 9999
+    p09_ad_log_pds_ad_id = 2151
+    p09_ud_doc_part_ud_id = 1
+    p09_ud_doc_part_lez_flg = 1
+    p09_ud_doc_part_ges_desc_ad_flg = 1
+
+- LISTA_DOCENTI_AD (lista)
+
+################################################################################
+################################################################################
+
+[REGOLE_DI_SCELTA] (attività didattica) (percorso) (corso di studio)
+    cds_id = 13
+    aa_ord_id = 2004
+    aa_id = 2005
+    aa_off_id = 2005
+    ad_id = 155
+    stato_att_cod = A
+    anno_corso = 1
+    ad_obl = 1
+
+- INFO_REGSCE_PDSORD
+
+################################################################################
+################################################################################
+
+[SEGMENTI] (attività didattica) (percorso) (corso di studio)
+    aa_off_id = 2004
+    cds_id = 13
+    ad_id = 155
+    aa_ord_id = 2004
+    seg_id = 1
+    pds_id = 9999
+    p09_seg_cds_sett_cod = CHIM/07
+    p09_seg_cds_disc_cod = (void)
+    p07_disc_des = (void)
+    freq_obblig_flg = 0
+    peso = 6
+    p09_seg_cds_tipo_cre_cod = LEZ
+    ore_min_freq = 0
+    ud_id = 1
+    des = Chimica 1
+    p09_seg_cds_dur_uni_val = 60
+    tipi_cred_des = Lezione
+    tipi_af_des = Base
+    p07_sett_des = FONDAMENTI CHIMICI DELLE TECNOLOGIE
+    p09_ad_gen_cod = 40013
+    ad_des = Chimica 1
+    p06_fac_cds_fac_id = 14
+    tipi_af_tipo_af_cod = B
+    fac_des = Ingegneria
+    cds_des = Ingegneria Civile (triennale)
+    cdsord_des = Post riforma triennale
+    pds_des = Standard
+
+- SEG_PDSORD
+
+################################################################################
+################################################################################
+
+[CONTENUTI] (attività didattica) (percorso) (corso di studio)
+    fat_part_cod = A3
+    dom_part_cod = AL
+    ad_log_id = 7458
+    des_ad_pubbl_flg = 1
+    testi_rif_des = Per gli argomenti presentat.........
+    dom_part_des = 'Iniziali cognome A-L'
+    contenuti_des = Nozioni introduttive. Grandezze fisiche....
+    obiett_form_des = Il corso fornisce i concetti...
+    prerequisiti_des = Conoscenze di base di matematica e.. 
+    metodi_did_des = Lezioni frontali in classe...
+    metodi_did_des = Lezioni frontali in classe...
+    mod_ver_appr_des = Prova scritta e prova...
+    altre_info_des = (void)
+
+- CONTENUTI_AD_PDSORD
+
+################################################################################
+################################################################################
+
+[TIPO_DI_ATTIVITA_FORMATIVA] (regolamento di percorso) (percorso) (corso di studio)
+    cds_id = 13
+    aa_ord_id = 2004
+    pds_id = 9999
+    ins_id = 3
+    prof_cod = 1
+    tipi_profstu_des = Studente Standard
+    cfu_max = 61
+    cfu_min = 48
+    tipo_af_cod = A
+    tipi_af_des = Base
+
+- REGP_TAF (lista)
+
+################################################################################
+################################################################################
+
+[AMBITO_DISCIPLINARE] (regolamento di percorso) (percorso) (corso di studio)
+    cds_id = 13
+    aa_ord_id = 2004
+    pds_id = 9999
+    ins_id = 3
+    prof_cod = 1
+    tipi_profstu_des = Studente Standard
+    tipo_af_cod = A
+    cfu_min = 18
+    cfu_max = 18
+    amb_id = 451
+    p07_ambiti_des = Fisica e chimica
+    tipi_af_des = Base
+
+- REGP_AMB (lista)
+
+################################################################################
+################################################################################
+
+[ATTIVITA_DIDATTICA_FISICA] (corso di studio) (facoltà)
+    cod = 21090
+    p09_ud_log_pds_ad_log_id = 6544
+    ad_gen_des = Analisi costi-benefici
+
+- LISTA_AD_FISICHE (lista)
+
+################################################################################
+################################################################################
+
+[ATTIVITA_DIDATTICA_FISICA_CON_DOCENTI] (corso di studio) (facoltà)
+    cod = 21090
+    p09_ud_log_pds_ad_log_id = 6544
+    ad_gen_des = Analisi costi-benefici
+    p09_ud_doc_part_fat_part_cod = N0
+    p09_ud_doc_part_dom_part_cod = N0
+    partizione = Nessun partizionamento
+    docenti_docente_id = 677543
+    docenti_cognome = ROSSI
+    docenti_nome = MARIO
+    p09_ud_doc_part_titolare_flg = 1
+    p09_ud_doc_part_resp_did_flg = 1
+    p09_ud_doc_part_lez_flg = 1
+
+- LISTA_AD_FISICHE_DOCENTE (lista)
+
+################################################################################
+################################################################################
+
+[UNITA_DIDATTICA] (attività didattica) (percorso) (corso di studio)
+    cds_id = 13
+    aa_off_id = 2005
+    ad_id = 155
+    aa_ord_id = 2004
+    pds_id = 9999
+    ud_id = 1
+    cod = (void)
+    ud_log_id = 1
+    des = Chimica 1
+
+- LISTA_UD_PDSORD (lista)
+
+################################################################################
+################################################################################
+
+[COMUNITA_WEB] (attività didattica) (percorso) (corso di studio)
+    comunita_id = 382
+    ambiente_id = 2
+    des = Fisica tecnica 1
+    stato = A
+    profilo_def_id = 3
+    sys_flg = 0
+    grp_id = 0
+    p18_classe_cls_id = 435
+    p18_classe_des = Classe globale comunità 338
+    nota = Comunità Generata Automaticamente ( 7460 )
+    p18_classe_email_amm = (void)
+    p18_ambiente_cod = AD
+    tipo_com_cod = A
+    pubblico_def_flg = 0
+    fac_fac_id = 0
+    fac_aa_off_id = 0
+
+- COMUNITA_AD_PDSORD
