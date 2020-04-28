@@ -43,6 +43,9 @@ VAL INPUT OPT:		?(tipo corso gestito da esse3)
 						</DataSet>
 					</WS>
 
+       ?REST:       /anno_accademico/DR_CALESA
+                    /anno_accademico/query?tipo_data_rif_cod=DR_CALESA
+
 ################################################################################
 ################################################################################
 
