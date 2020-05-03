@@ -475,7 +475,7 @@ VAL INPUT OPT:		?(tipo corso gestito da esse3)
 	   	 			compresi codice e descrizione dell'ordinamento e cds per i 
 	   	 			quali è definito
 
-	   OP CODE:		LISTA_PDSORD
+	   OP CODE:		DETT_PDSORD
 
 	 INPUT MAN:		cds_id
  VAL INPUT MAN:		?(probabilmente id corso di studio)
