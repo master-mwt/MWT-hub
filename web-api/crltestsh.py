@@ -19,15 +19,43 @@ with open("out.txt", "a+") as out_file:
 	kvreq = {
 		'GET_CURR_AA': [
 		'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/DR_CALESA',
-		'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/DR_CALESAa',
+		'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/DR_CALESA/?tipo_data_rif_cod=\'01\'',
 		],	
 		'AA_LOOKUP': [
-		'http://localhost:8080/Esse3RestApi/rest/elenco_anni_accademici/2021',
 		'http://localhost:8080/Esse3RestApi/rest/elenco_anni_accademici/2005'
 		],
 		'CLASSI': [
 		'http://localhost:8080/Esse3RestApi/rest/classi'
 		],
+		'FACOLTA': [
+		'http://localhost:8080/Esse3RestApi/rest/facolta',
+		'http://localhost:8080/Esse3RestApi/rest/facolta/?fac_id=1&lingua_iso6392_cod=\'ita\'',
+		'http://localhost:8080/Esse3RestApi/rest/facolta/?lingua_iso6392_cod=\'ita\'',
+		'http://localhost:8080/Esse3RestApi/rest/facolta/?fac_id=1&lingua_iso6392_cod=\'eng\''
+		],
+		'ATENEI': [
+		'http://localhost:8080/Esse3RestApi/rest/atenei'
+		],
+		'CDS_FACOLTA': [],
+		'TIPI_CORSO': [],
+		'CLASSE_CDS': [],
+		'LISTA_CDSORD': [],
+		'DETT_CDSORD': [],
+		'LISTA_PDSORD': [],
+		'DETT_PDSORD': [],
+		'LISTA_AD_PDSORD': [],
+		'INFO_PART_AD_PDSORD': [],
+		'INFO_LOG_AD_PDSORD': [],
+		'LISTA_DOCENTI_AD': [],
+		'INFO_REGSCE_PDSORD': [],
+		'SEG_PDSORD': [],
+		'CONTENUTI_AD_PDSORD': [],
+		'REGP_TAF': [],
+		'REGP_AMB': [],
+		'LISTA_AD_FISICHE': [],
+		'LISTA_AD_FISICHE_DOCENTE': [],
+		'LISTA_UD_PDSORD': [],
+		'COMUNITA_AD_PDSORD': [],
 	}
 
 	for k,v in kvreq.items():
