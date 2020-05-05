@@ -195,6 +195,8 @@ VAL INPUT OPT:		?(tipo corso gestito da esse3)
 
 	   OP CODE:		CDS_FACOLTA
 
+INPUT MAN CALL:		aa_id && {cds_id} || {tipo_corso}
+
 	 INPUT MAN:		aa_id
  VAL INPUT MAN:		?(probabilmente id anno accademico: es. 2015)
 
