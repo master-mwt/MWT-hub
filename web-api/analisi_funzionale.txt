@@ -1188,6 +1188,9 @@ INPUT OPT CALL:		{cds_id, aa_ord_id, pds_id, ad_id} || {ad_log_id}
 	 INPUT MAN:		aa_off_id
  VAL INPUT MAN:		?(probabilmente id anno accademico dell'offerta)
 
+	 INPUT MAN:		aa_id
+ VAL INPUT MAN:		?(probabilmente id dell'attività didattica )
+
 	 INPUT OPT:		lingua_iso6392_cod
  VAL INPUT OPT:		?(probabilmente codice lingua risultato: "ita","eng"??)
 
