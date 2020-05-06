@@ -18,43 +18,84 @@ with open("out.txt", "a+") as out_file:
 
 	kvreq = {
 		'GET_CURR_AA': [
-		'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/DR_CALESA',
-		'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/DR_CALESA/?tipo_data_rif_cod=\'01\'',
+			'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/tipo_data_rif_cod/DR_CALESA',
+			'http://localhost:8080/Esse3RestApi/rest/anno_accademico_corrente/tipo_data_rif_cod/DR_CALESA/?tipo_corso_cod=L2',
 		],	
 		'AA_LOOKUP': [
-		'http://localhost:8080/Esse3RestApi/rest/elenco_anni_accademici/2005'
+			'http://localhost:8080/Esse3RestApi/rest/elenco_anni_accademici/aa_ini_id/2005',
 		],
 		'CLASSI': [
-		'http://localhost:8080/Esse3RestApi/rest/classi'
+			'http://localhost:8080/Esse3RestApi/rest/classi',
+			'http://localhost:8080/Esse3RestApi/rest/classi/?cla_m_id=1',
 		],
 		'FACOLTA': [
-		'http://localhost:8080/Esse3RestApi/rest/facolta',
-		'http://localhost:8080/Esse3RestApi/rest/facolta/?fac_id=1&lingua_iso6392_cod=\'ita\'',
-		'http://localhost:8080/Esse3RestApi/rest/facolta/?lingua_iso6392_cod=\'ita\'',
-		'http://localhost:8080/Esse3RestApi/rest/facolta/?fac_id=1&lingua_iso6392_cod=\'eng\''
+			'http://localhost:8080/Esse3RestApi/rest/facolta',
+			'http://localhost:8080/Esse3RestApi/rest/facolta/?fac_id=1&lingua_iso6392_cod=\'ita\'',
 		],
 		'ATENEI': [
-		'http://localhost:8080/Esse3RestApi/rest/atenei'
+			'http://localhost:8080/Esse3RestApi/rest/atenei'
 		],
-		'CDS_FACOLTA': [],
-		'TIPI_CORSO': [],
-		'CLASSE_CDS': [],
-		'LISTA_CDSORD': [],
-		'DETT_CDSORD': [],
-		'LISTA_PDSORD': [],
-		'DETT_PDSORD': [],
-		'LISTA_AD_PDSORD': [],
-		'INFO_PART_AD_PDSORD': [],
-		'INFO_LOG_AD_PDSORD': [],
-		'LISTA_DOCENTI_AD': [],
-		'INFO_REGSCE_PDSORD': [],
-		'SEG_PDSORD': [],
-		'CONTENUTI_AD_PDSORD': [],
-		'REGP_TAF': [],
-		'REGP_AMB': [],
-		'LISTA_AD_FISICHE': [],
-		'LISTA_AD_FISICHE_DOCENTE': [],
-		'LISTA_UD_PDSORD': [],
+		'CDS_FACOLTA': [
+			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/tipo_corso/L2/?cla_id=0&fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita',
+			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/cds_id/10051/?cla_id=0&fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita'
+		],
+		'TIPI_CORSO': [
+			'http://localhost:8080/Esse3RestApi/rest/tipi_corsi_di_studio',
+		],
+		'CLASSE_CDS': [
+			'http://localhost:8080/Esse3RestApi/rest/classe_di_laurea_corso_di_studio/cds_id/10051/?lingua_iso6392_cod=eng',
+		],
+		'LISTA_CDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_ordinamenti_corso_di_studio/cds_id/10013/?lingua_iso6392_cod=ita',
+		],
+		'DETT_CDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/dati_di_dettaglio_ordinamento_didattico/cds_id/10013/aa_ord_id/2017/?lingua_iso6392_cod=eng',
+		],
+		'LISTA_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_percorsi_corso_di_studio/cds_id/10013/aa_ord_id/2017/?lingua_iso6392_cod=eng',
+		],
+		'DETT_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/dati_di_dettaglio_percorso_di_studio/cds_id/10013/aa_ord_id/2017/pds_id/5/?lingua_iso6392_cod=ita',
+		],
+		'LISTA_AD_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/?ad_id=34381&lingua_iso6392_cod=ita',
+		],
+		'INFO_PART_AD_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/periodo_didattico_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5?lingua_iso6392_cod=ita',
+		],
+		'INFO_LOG_AD_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/informazioni_logistiche_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/?ad_id=34381&lingua_iso6392_cod=ita',
+		],
+		'LISTA_DOCENTI_AD': [
+			'http://localhost:8080/Esse3RestApi/rest/docenti_attivita_didattiche_percorso_di_studio/ad_log_id/33929/?tit_flg=1',
+			'http://localhost:8080/Esse3RestApi/rest/docenti_attivita_didattiche_percorso_di_studio/cds_is/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/ad_id/34381/?tit_flg=1',
+		],
+		'INFO_REGSCE_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/regole_scelta_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/anno_coorte/2017',
+		],
+		'SEG_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/segmenti_percorso_di_studio_o_attivita_didattica/aa_off_id/2017/ad_log_id/33929/?ad_id=34381&lingua_iso6392_cod=ita',
+			'http://localhost:8080/Esse3RestApi/rest/segmenti_percorso_di_studio_o_attivita_didattica/aa_off_id/2017/cds_id/10013/aa_ord_id/2017/psd_id/2/?ad_id=34381&lingua_iso6392_cod=ita',
+		],
+		'CONTENUTI_AD_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/contenuti_attivita_didattica/aa_off_id/2017?lingua_iso6392_cod=ita&ad_log_id=33929',
+			'http://localhost:8080/Esse3RestApi/rest/contenuti_attivita_didattica/aa_off_id/2017?lingua_iso6392_cod=ita&cds_id=10013&aa_ord_id=2017&pds_id=5&ad_id=34381',
+		],
+		'REGP_TAF': [
+			'http://localhost:8080/Esse3RestApi/rest/regole_di_percorso_tipi_attivita_formative/cds_id/10013/aa_ord_id/2017/pds_id/5/prof_cod/1/aa_reg_id/2017/?lingua_iso6392_cod=ita',
+		],
+		'REGP_AMB': [
+			'http://localhost:8080/Esse3RestApi/rest/regole_di_percorso_ambiti_disciplinari/cds_id/10013/aa_ord_id/2017/pds_id/5/prof_cod/1/aa_reg_id/2017/?lingua_iso6392_cod=ita',
+		],
+		'LISTA_AD_FISICHE': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_attivita_didattiche_fisiche/aa_off_id/2017/?cds_id=10013&lingua_iso6392_cod=ita',
+		],
+		'LISTA_AD_FISICHE_DOCENTE': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_attivita_didattiche_fisiche_con_docenti_e_partizioni/aa_off_id/2017/?cds_id=10013&lingua_iso6392_cod=ita',
+		],
+		'LISTA_UD_PDSORD': [
+			'http://localhost:8080/Esse3RestApi/rest/elenco_unita_didattiche_attivita_didattica/cds_id/10013/aa_ord_id/2017/pds_id/5/aa_off_id/2017/ad_id/34381/?lingua_iso6392_cod=ita',
+		],
 		'COMUNITA_AD_PDSORD': [],
 	}
 
