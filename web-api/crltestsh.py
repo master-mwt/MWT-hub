@@ -36,8 +36,8 @@ with open("out.txt", "a+") as out_file:
 			'http://localhost:8080/Esse3RestApi/rest/atenei'
 		],
 		'CDS_FACOLTA': [
-			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/tipo_corso/L2/?cla_id=0&fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita',
-			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/cds_id/10051/?cla_id=0&fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita'
+			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/tipo_corso/L2/?fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita',
+			'http://localhost:8080/Esse3RestApi/rest/corsi_di_studio/aa_id/2018/cds_id/10051/?fac_id=10009&cds_des=biotecnologie&aa_ord_id=2013&norm_id=3&lingua_iso6392_cod=ita'
 		],
 		'TIPI_CORSO': [
 			'http://localhost:8080/Esse3RestApi/rest/tipi_corsi_di_studio',
@@ -68,14 +68,14 @@ with open("out.txt", "a+") as out_file:
 		],
 		'LISTA_DOCENTI_AD': [
 			'http://localhost:8080/Esse3RestApi/rest/docenti_attivita_didattiche_percorso_di_studio/ad_log_id/33929/?tit_flg=1',
-			'http://localhost:8080/Esse3RestApi/rest/docenti_attivita_didattiche_percorso_di_studio/cds_is/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/ad_id/34381/?tit_flg=1',
+			'http://localhost:8080/Esse3RestApi/rest/docenti_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/ad_id/34381/?tit_flg=1',
 		],
 		'INFO_REGSCE_PDSORD': [
 			'http://localhost:8080/Esse3RestApi/rest/regole_scelta_attivita_didattiche_percorso_di_studio/cds_id/10013/aa_ord_id/2017/aa_off_id/2017/pds_id/5/anno_coorte/2017',
 		],
 		'SEG_PDSORD': [
 			'http://localhost:8080/Esse3RestApi/rest/segmenti_percorso_di_studio_o_attivita_didattica/aa_off_id/2017/ad_log_id/33929/?ad_id=34381&lingua_iso6392_cod=ita',
-			'http://localhost:8080/Esse3RestApi/rest/segmenti_percorso_di_studio_o_attivita_didattica/aa_off_id/2017/cds_id/10013/aa_ord_id/2017/psd_id/2/?ad_id=34381&lingua_iso6392_cod=ita',
+			'http://localhost:8080/Esse3RestApi/rest/segmenti_percorso_di_studio_o_attivita_didattica/aa_off_id/2017/cds_id/10013/aa_ord_id/2017/pds_id/2/?ad_id=34381&lingua_iso6392_cod=ita',
 		],
 		'CONTENUTI_AD_PDSORD': [
 			'http://localhost:8080/Esse3RestApi/rest/contenuti_attivita_didattica/aa_off_id/2017?lingua_iso6392_cod=ita&ad_log_id=33929',
