@@ -1,31 +1,29 @@
-let API = require("./Api");
-let fs = require("fs");
+const API = require("./Api");
+const fs = require("fs");
 
 let links = [];
+let stream = fs.createWriteStream("links", { flags: "a" });
 
 async function analyzePopulars() {
   let maxPage = 0;
   await API.getTvShowsPopular()
     .then(async (res) => {
       maxPage = res.total_pages;
-      console.log(`maxPage = ${maxPage}`);
+      console.log(`page 1 / ` + maxPage);
       await analyzePage(res.results);
     })
-    .then(() => {
-      console.log(`page 1 analyzed`);
-    })
+    .then(() => {})
     .catch(() => {
       console.log("getTvShowsPopular() error");
     });
-
+  return;
   for (let i = 2; i <= maxPage; i++) {
+    console.log(`page ${i} / ` + maxPage);
     await API.getTvShowsPopular(i)
       .then(async (res) => {
         await analyzePage(res.results);
       })
-      .then(() => {
-        console.log(`page ${i} analyzed`);
-      })
+      .then(() => {})
       .catch(() => {
         console.log("getTvShowsPopular() error");
       });
@@ -33,6 +31,7 @@ async function analyzePopulars() {
 }
 
 async function analyzePage(tvShows) {
+  links = [];
   for (tvShow of tvShows) {
     links.push(
       `https://master-mwt.github.io/trakd/discover/${tvShow.id}/details`
@@ -52,22 +51,18 @@ async function analyzePage(tvShows) {
               }
             })
             .then(() => {
-              console.log(
-                "getTvShowSeason() tvshow " +
-                  tvShowDetails.id +
-                  " season " +
-                  season.season_number +
-                  " finished"
-              );
+              for (let link of links) {
+                stream.write(link + "\n");
+              }
+              console.log(links.length);
+              links = [];
             })
             .catch(() => {
               console.log("getTvShowSeason() error");
             });
         }
       })
-      .then(() => {
-        console.log("getTvShowDetails() tvshow " + tvShow.id + " finished");
-      })
+      .then(() => {})
       .catch(() => {
         console.log("getTvShowDetails() error");
       });
@@ -75,11 +70,6 @@ async function analyzePage(tvShows) {
 }
 
 async function main() {
-  console.log("** link discovering **");
-  await analyzePopulars();
-  console.log("** link discover finished **");
-  console.log("-- write links started --");
-  let stream = fs.createWriteStream("links", { flags: "a" });
   stream.write("https://master-mwt.github.io/trakd/" + "\n");
   stream.write("https://master-mwt.github.io/trakd/explore/popular" + "\n");
   stream.write("https://master-mwt.github.io/trakd/explore/top_rated" + "\n");
@@ -87,11 +77,8 @@ async function main() {
   stream.write("https://master-mwt.github.io/trakd/genres" + "\n");
   stream.write("https://master-mwt.github.io/trakd/collection" + "\n");
   stream.write("https://master-mwt.github.io/trakd/backup" + "\n");
-  for (let link of links) {
-    stream.write(link + "\n");
-  }
+  await analyzePopulars();
   stream.end();
-  console.log("-- write links finished --");
 }
 
 main();
