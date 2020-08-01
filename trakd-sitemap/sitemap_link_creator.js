@@ -4,21 +4,21 @@ const fs = require("fs");
 let links = [];
 let stream = fs.createWriteStream("links", { flags: "a" });
 
-async function analyzePopulars() {
+async function analyzePopulars(limit = 1) {
   let maxPage = 0;
   await API.getTvShowsPopular()
     .then(async (res) => {
       maxPage = res.total_pages;
-      console.log(`page 1 / ` + maxPage);
+      console.log(`page 1 / ${limit} (maxPage: ${maxPage})`);
       await analyzePage(res.results);
     })
     .then(() => {})
     .catch(() => {
       console.log("getTvShowsPopular() error");
     });
-  return;
-  for (let i = 2; i <= maxPage; i++) {
-    console.log(`page ${i} / ` + maxPage);
+
+  for (let i = 2; i <= limit; i++) {
+    console.log(`page ${i} / ${limit} (maxPage: ${maxPage})`);
     await API.getTvShowsPopular(i)
       .then(async (res) => {
         await analyzePage(res.results);
@@ -32,21 +32,20 @@ async function analyzePopulars() {
 
 async function analyzePage(tvShows) {
   links = [];
+  let tvShowCounter = 0;
   for (tvShow of tvShows) {
-    links.push(
-      `https://master-mwt.github.io/trakd/discover/${tvShow.id}/details`
-    );
+    links.push(`https://tracker-daemon.web.app/discover/${tvShow.id}/details`);
     await API.getTvShowDetails(tvShow.id)
       .then(async (tvShowDetails) => {
         for (let season of tvShowDetails.seasons) {
           await API.getTvShowSeason(tvShowDetails.id, season.season_number)
             .then((seasonDetails) => {
               links.push(
-                `https://master-mwt.github.io/trakd/discover/${tvShowDetails.id}/details/season/${season.season_number}`
+                `https://tracker-daemon.web.app/discover/${tvShowDetails.id}/details/season/${season.season_number}`
               );
               for (let episode of seasonDetails.episodes) {
                 links.push(
-                  `https://master-mwt.github.io/trakd/discover/${tvShowDetails.id}/details/season/${season.season_number}/episode/${episode.id}`
+                  `https://tracker-daemon.web.app/discover/${tvShowDetails.id}/details/season/${season.season_number}/episode/${episode.episode_number}`
                 );
               }
             })
@@ -54,7 +53,6 @@ async function analyzePage(tvShows) {
               for (let link of links) {
                 stream.write(link + "\n");
               }
-              console.log(links.length);
               links = [];
             })
             .catch(() => {
@@ -66,18 +64,13 @@ async function analyzePage(tvShows) {
       .catch(() => {
         console.log("getTvShowDetails() error");
       });
+    console.log(`Parsed tvShow ${++tvShowCounter} / ${tvShows.length}`);
   }
 }
 
 async function main() {
-  stream.write("https://master-mwt.github.io/trakd/" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/explore/popular" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/explore/top_rated" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/search" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/genres" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/collection" + "\n");
-  stream.write("https://master-mwt.github.io/trakd/backup" + "\n");
-  await analyzePopulars();
+  // 10 pages = 20 tvShow * 10 pages = first 200 most popular tvShows
+  await analyzePopulars(10);
   stream.end();
 }
 
