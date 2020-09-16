@@ -7,4 +7,13 @@
 	<sitemap>
 		<loc>https://tracker-daemon.web.app/sitemap-main.xml.gz</loc>
 	</sitemap>
+	<sitemap>
+		<loc>https://tracker-daemon.web.app/sitemap-1.xml.gz</loc>
+	</sitemap>
+	<sitemap>
+		<loc>https://tracker-daemon.web.app/sitemap-2.xml.gz</loc>
+	</sitemap>
+	<sitemap>
+		<loc>https://tracker-daemon.web.app/sitemap-3.xml.gz</loc>
+	</sitemap>
 </sitemapindex>
