@@ -13,6 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // jwt middleware
 const jwtMW = jwt({ secret: "trakd_pwa_application", algorithms: ["HS256"] });
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");
+  next();
+});
+
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     res.status(401).send(err);
@@ -46,7 +52,7 @@ const User = mongoose.model("User", UserSchema);
 });*/
 //const Collection = mongoose.model("Collection", CollectionSchema);
 
-// TODO: collection in mongodb, routes returns
+// TODO: collection in mongodb, missing todo routes returns
 
 app.post("/auth/sign_in", (req, res) => {
   const { username, password } = req.body;
@@ -140,7 +146,22 @@ app.post("/collection", jwtMW, (req, res) => {
 // get user profile data
 app.get("/profile", jwtMW, (req, res) => {
   // req.user è {username: 'test1', password: 'a'}
-  res.send("profile get");
+  const { username } = req.user;
+  User.find({ username: username }, function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    }
+    if (!!data && !!data[0]) {
+      res.json({
+        username: data[0].username,
+        password: data[0].password,
+        name: data[0].name,
+        surname: data[0].surname,
+      });
+    } else {
+      res.status(500).send("No user data");
+    }
+  });
 });
 
 // save user profile data
