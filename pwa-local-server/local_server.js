@@ -95,7 +95,12 @@ app.post("/auth/sign_up", (req, res) => {
         if (err) {
           res.sendStatus(500);
         } else {
-          res.sendStatus(200);
+          res.json({
+            username: username,
+            password: password,
+            name: name,
+            surname: surname,
+          });
         }
       });
     }
@@ -145,7 +150,7 @@ app.post("/collection", jwtMW, (req, res) => {
           if (err) {
             res.sendStatus(500);
           } else {
-            res.sendStatus(200);
+            res.json(req.body);
           }
         }
       );
@@ -154,7 +159,7 @@ app.post("/collection", jwtMW, (req, res) => {
         if (err) {
           res.sendStatus(500);
         } else {
-          res.sendStatus(200);
+          res.json(req.body);
         }
       });
     }
@@ -203,7 +208,12 @@ app.post("/profile", jwtMW, (req, res) => {
           if (err) {
             res.sendStatus(500);
           } else {
-            res.sendStatus(200);
+            res.json({
+              username: username,
+              password: req.body.password,
+              name: req.body.name,
+              surname: req.body.surname,
+            });
           }
         }
       );
