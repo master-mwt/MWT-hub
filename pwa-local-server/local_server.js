@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // jwt middleware
 const jwtMW = jwt({ secret: "trakd_pwa_application", algorithms: ["HS256"] });
 
+// set cors headers
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
   res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");
@@ -27,17 +28,12 @@ app.use(function (err, req, res, next) {
   }
 });
 
-// this data should be in db
-/*let users = [
-  { id: 1, username: "test1", password: "a" },
-  { id: 2, username: "test2", password: "b" },
-];*/
-
 // mongoose setup
 mongoose.connect("mongodb://localhost:27017/pwa_local_database", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
@@ -45,15 +41,13 @@ const UserSchema = new mongoose.Schema({
   surname: String,
 });
 const User = mongoose.model("User", UserSchema);
-
-/*const CollectionSchema = new mongoose.Schema({
+const UserCollectionSchema = new mongoose.Schema({
   username: String,
-  collection: String,
-});*/
-//const Collection = mongoose.model("Collection", CollectionSchema);
+  userCollection: String,
+});
+const UserCollection = mongoose.model("UserCollection", UserCollectionSchema);
 
-// TODO: collection in mongodb, missing todo routes returns
-
+// routes
 app.post("/auth/sign_in", (req, res) => {
   const { username, password } = req.body;
 
@@ -79,24 +73,6 @@ app.post("/auth/sign_in", (req, res) => {
       res.status(401).send("Login error");
     }
   });
-
-  /*
-  // this should be a query in db
-  for (let user of users) {
-    // passwords should be hashed
-    if (username === user.username && password === user.password) {
-      // login correct, generate token
-      let token = jwtToken.sign(
-        { username: user.username, password: user.password },
-        "trakd_pwa_application",
-        // TODO: set a good expiresIn
-        { expiresIn: "60s", algorithm: "HS256" }
-      );
-      res.json({ username: username, token: token });
-    }
-  }
-  res.status(401).send("Login error");
-  */
 });
 
 app.post("/auth/sign_up", (req, res) => {
@@ -133,14 +109,56 @@ app.get("/", (req, res) => {
 // get user collection
 app.get("/collection", jwtMW, (req, res) => {
   // req.user è {username: 'test1', password: 'a'}
-  console.log(req.user);
-  res.send("collection get");
+  const { username } = req.user;
+  UserCollection.find({ username: username }, function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    }
+    if (!!data && !!data[0]) {
+      res.json(data[0].userCollection);
+    } else {
+      res.status(500).send("No collection found");
+    }
+  });
 });
 
 // save user collection
 app.post("/collection", jwtMW, (req, res) => {
   // req.user è {username: 'test1', password: 'a'}
-  res.send("collection save");
+  const { username } = req.user;
+
+  let element = new UserCollection({
+    username: username,
+    userCollection: JSON.stringify(req.body),
+  });
+
+  UserCollection.find({ username: username }, function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    }
+    if (!!data && !!data[0]) {
+      UserCollection.update(
+        { username: username },
+        { userCollection: JSON.stringify(req.body) },
+        { multi: false },
+        (err) => {
+          if (err) {
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        }
+      );
+    } else {
+      element.save(function (err, collection) {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    }
+  });
 });
 
 // get user profile data
@@ -167,9 +185,36 @@ app.get("/profile", jwtMW, (req, res) => {
 // save user profile data
 app.post("/profile", jwtMW, (req, res) => {
   // req.user è {username: 'test1', password: 'a'}
-  res.send("profile save");
+  const { username } = req.user;
+  User.find({ username: username }, function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    }
+    if (!!data && !!data[0]) {
+      User.update(
+        { username: username },
+        {
+          password: req.body.password,
+          name: req.body.name,
+          surname: req.body.surname,
+        },
+        { multi: false },
+        (err) => {
+          if (err) {
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        }
+      );
+    } else {
+      res.status(500).send("User not found");
+    }
+  });
 });
 
+// server starts listening on chosen port
+// ctrl+c to stop
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
