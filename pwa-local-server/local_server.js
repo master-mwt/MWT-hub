@@ -83,6 +83,10 @@ app.post("/auth/sign_up", (req, res) => {
     name: name,
     surname: surname,
   });
+  let collection = new UserCollection({
+    username: username,
+    userCollection: JSON.stringify({}),
+  });
 
   User.find({ username: username }, function (err, data) {
     if (err) {
@@ -95,11 +99,17 @@ app.post("/auth/sign_up", (req, res) => {
         if (err) {
           res.sendStatus(500);
         } else {
-          res.json({
-            username: username,
-            password: password,
-            name: name,
-            surname: surname,
+          collection.save(function (err) {
+            if (err) {
+              res.sendStatus(500);
+            } else {
+              res.json({
+                username: username,
+                password: password,
+                name: name,
+                surname: surname,
+              });
+            }
           });
         }
       });
@@ -120,7 +130,7 @@ app.get("/collection", jwtMW, (req, res) => {
       res.sendStatus(500);
     }
     if (!!data && !!data[0]) {
-      res.json(data[0].userCollection);
+      res.json(JSON.parse(data[0].userCollection));
     } else {
       res.status(500).send("No collection found");
     }
