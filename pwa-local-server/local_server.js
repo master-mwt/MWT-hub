@@ -105,7 +105,6 @@ app.post("/auth/sign_up", (req, res) => {
             } else {
               res.json({
                 username: username,
-                password: hashedPassword,
                 name: name,
                 surname: surname,
               });
@@ -187,7 +186,6 @@ app.get("/profile", jwtMW, (req, res) => {
     if (!!data && !!data[0]) {
       res.json({
         username: data[0].username,
-        password: data[0].password,
         name: data[0].name,
         surname: data[0].surname,
       });
@@ -209,7 +207,6 @@ app.post("/profile", jwtMW, (req, res) => {
       User.update(
         { username: username },
         {
-          password: req.body.password,
           name: req.body.name,
           surname: req.body.surname,
         },
@@ -220,7 +217,6 @@ app.post("/profile", jwtMW, (req, res) => {
           } else {
             res.json({
               username: username,
-              password: req.body.password,
               name: req.body.name,
               surname: req.body.surname,
             });
