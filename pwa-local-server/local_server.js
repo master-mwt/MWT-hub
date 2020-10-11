@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const jwt = require("express-jwt");
 const bodyParser = require("body-parser");
 const jwtToken = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const port = 8080;
@@ -56,14 +57,12 @@ app.post("/auth/sign_in", (req, res) => {
       res.sendStatus(500);
     }
     if (!!data && !!data[0]) {
-      if (password === data[0].password) {
+      if (bcrypt.compareSync(password, data[0].password)) {
         // login correct, generate token
-        // TODO: password is not hashed! (install bcrypt module)
         let token = jwtToken.sign(
           { username: data[0].username, password: data[0].password },
           "trakd_pwa_application",
-          // TODO: set a good expiresIn
-          { expiresIn: "60s", algorithm: "HS256" }
+          { expiresIn: "2h", algorithm: "HS256" }
         );
         res.json({ username: data[0].username, token: token });
       } else {
@@ -77,9 +76,10 @@ app.post("/auth/sign_in", (req, res) => {
 
 app.post("/auth/sign_up", (req, res) => {
   const { username, password, name, surname } = req.body;
+  let hashedPassword = bcrypt.hashSync(password, 10);
   let element = new User({
     username: username,
-    password: password,
+    password: hashedPassword,
     name: name,
     surname: surname,
   });
@@ -105,7 +105,7 @@ app.post("/auth/sign_up", (req, res) => {
             } else {
               res.json({
                 username: username,
-                password: password,
+                password: hashedPassword,
                 name: name,
                 surname: surname,
               });
